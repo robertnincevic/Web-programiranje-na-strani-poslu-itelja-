@@ -1,0 +1,183 @@
+<?php
+//1.a
+class Foo{
+	public function __construct(){
+		print 'Klasa Foo() je instancirana!';
+	}
+}
+$foo=new Foo();
+
+//1.b
+class User{
+	
+	protected $ime;
+	
+	public function introduce($ime){
+		$this->ime=$ime;
+		return $this->ime;
+	}
+}
+$user=new User();
+print 'Welcome '. $user->introduce('mate');
+?>
+
+
+---222222222222222222222--------------------2222222222222222222222222222---------------------------------------------------------
+
+<?php
+//1.a
+class Math{
+	
+	protected $a;
+	protected $b;
+	
+	public function __construct($a,$b){
+		$this->a=$a;
+		$this->b=$b;
+	}
+	public function add(){
+		if($this->a>0 && $this->b!=0){
+			return $this->a * $this->b;
+		}
+	}
+	public function subtract(){
+		if($this->a>0 && $this->b>0){
+			return $this->a / $this->b;
+		}
+	}
+}
+$math=new Math(5,5);
+print $math->add().' '.$math->subtract(); 
+
+class Modificirana extends Math{
+	
+	public function subtract(){
+		if($this->a>10 && $this->a<100){
+			return $this->a / $this->b;
+		}
+		else
+			throw new Exception('Uvjet nije zadovoljen!');
+}
+}
+$modif=new Modificirana(55,5);
+print $modif->add().' '.$modif->subtract(); 
+
+?>
+
+
+
+---333333333333333--------------------33333333333333333333---------------------------------------------------------
+
+<?php
+//3. pod a i b (final je dodano za 3.b)
+require 'Kol2.php';
+
+class NoLimit extends Math{
+	
+	final function subtract(){  //ovo je inače public,a sada je final i tako smo zabranili nasljedivanje
+			return $this->a / $this->b;
+		}
+		
+}
+$nolimit=new nolimit(55,5);
+print $nolimit->add().' '.$nolimit->subtract(); 
+
+?>
+---4444444444444444--------------------4444444444444444444444---------------------------------------------------------
+
+<?php
+class Car{
+
+	protected $price;
+	protected $discount;
+	
+	public function __get($property){
+		return $this->$property;
+	}
+	public function __set($property,$value){
+		//if($property === 'price' && $property === 'discount'){
+			$this->$property=$value;
+}
+}
+$car=new Car();
+$car->price=3242;
+$car->discount=322;
+print $car->price.' '.$car->discount;
+?>
+---5555555555555555--------------------5555555555555555555555555555555555555----------------------------------------
+<?php
+//5.
+class Math{
+	
+	protected $a;
+	protected $b;
+	
+	public function __construct($a,$b){
+		$this->a=$a;
+		$this->b=$b;
+	}
+	public function add(){
+		if($this->a>0 && $this->b>0){
+			return $this->a * $this->b;
+		}
+	}
+	public function subtract(){
+		if($this->a>10 && $this->a<100){
+			return $this->a / $this->b;
+		}
+		else
+			throw new Exception('Uvjet nije zadovoljen!');
+}
+}
+$math=new Math(90,0);
+try
+{
+	print $math->add().' '.$math->subtract(); 
+}
+catch(Exception $e){
+	print 'Ne moze!';
+}
+?>
+-----------------------------------------------------6666666666666666666666666666666----------------------------------
+> system
+|> model
+|MySQLiDatabase.class.php
+|> view
+|index.tpl.php
+|> control
+|IndexPage.class.php
+|> util
+|RequestHandler.class.php
+
+AppCore.class.php //glavna klasa aplikacije
+core.functions.php //osnovne funkcije (npr. autoload)
+config.inc.php //podaci za spajanje na bazu podataka
+options.inc.php //postavke aplikacije
+.htaccess
+index.php
+
+
+
+
+
+-----------------------------------------77777777777777777777777777777777777777777777777777-------------
+<?php
+class MySQLiDatabase{
+	
+	protected $user;
+	protected $password;
+	protected $localhost;
+	public $link;
+	
+	$link = mysql_connect('localhost', 'user', 'password');
+	if (!$link) {
+		die('Could not connect: ' . mysql_error());
+	}
+	echo 'Connected successfully';
+	mysql_close($link);
+}
+
+?>
+
+
+
